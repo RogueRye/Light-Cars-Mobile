@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour {
 
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
+    public TMP_Text debugText;
 
     bool dead = false;
 
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         GetInput();
+        debugText.text = string.Format("H value = {0}", h);
         Steer();
         Accelerate();
 
@@ -58,12 +61,19 @@ public class PlayerController : MonoBehaviour {
 
 
 
+
+
 #elif UNITY_IOS || UNITY_ANDROID
 
-                 if(controlType == MovementTypes.Accelerometer)
-                {
-                    h = Input.acceleration.x * maxTurnAngle;
-                }
+         if (controlType == MovementTypes.Accelerometer)
+        {
+            if (Input.gyro.enabled)
+            {
+                h = Input.gyro.attitude.z;
+            }
+            else 
+                h = Input.acceleration.x;
+        }
 
 
 #endif
