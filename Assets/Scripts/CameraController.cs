@@ -10,6 +10,11 @@ public class CameraController : MonoBehaviour {
     public float lookSpeed = 10;
 
 
+    public void Init(Transform mTarget)
+    {
+        target = mTarget;
+    }
+
     public void LookAtTarget()
     {
         var dir = target.position - transform.position;

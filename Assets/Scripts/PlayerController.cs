@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 using TMPro;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : NetworkBehaviour {
 
     public float speed;
     public float maxTurnAngle;
@@ -29,12 +28,19 @@ public class PlayerController : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+
+        if (!isLocalPlayer)
+            return;
+
         rb = GetComponent<Rigidbody>();
-        
+        Camera.main.GetComponent<CameraController>().Init(transform);
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+        if (!isLocalPlayer)
+            return;
 
         if (dead)
         {
