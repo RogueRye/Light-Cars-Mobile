@@ -19,4 +19,7 @@ public class LobbyManager : NetworkLobbyManager {
         lobbyMenu.SetActive(true);
     }
 
+
+
+
 }

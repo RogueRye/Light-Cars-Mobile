@@ -10,12 +10,17 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
     public Button joinButton;
     public TMP_Text myText;
     public TMP_Text btnText;
-
+    [HideInInspector]
+    public LobbyManager owner;
 
     public override void OnClientEnterLobby()
     {
         base.OnClientEnterLobby();
         //get parent somehow
+        owner = FindObjectOfType<LobbyManager>();
+
+        gameObject.transform.SetParent(owner.lobbyMenu.transform.GetChild(0));
+
        
     }
 
@@ -43,5 +48,9 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
     }
 
 
+    public void JoinMatch()
+    {
+        SendReadyToBeginMessage();
+    }
 
 }
