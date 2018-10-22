@@ -1,19 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Networking.Match;
+using UnityEngine.Networking;
 using TMPro;
 public class JoinButton : MonoBehaviour {
 
-    
-    private TMP_Text text;
+
+    private TMP_Text btnText;
+    private MatchInfoSnapshot m_Match; 
 
     private void Awake()
     {
-        text = GetComponent<TMP_text>();
+        btnText = GetComponentInChildren<TMP_Text>();
     }
 
-    public void Init()
+    public void Init(MatchInfoSnapshot match, Transform parent)
     {
-
+        btnText.text = match.name;
+        transform.SetParent(parent);
+        transform.localScale = Vector3.one;
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
     }
+
+
+    public void JoinMatch()
+    {
+        //FindObjectOfType<MyNetworkManager>().JoinMatch(m_Match);
+    }
+
 }

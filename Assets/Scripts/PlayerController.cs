@@ -8,6 +8,7 @@ public class PlayerController : NetworkBehaviour {
 
     public float speed;
     public float maxTurnAngle;
+    public float turnDamper = 2;
     public MovementTypes controlType = MovementTypes.Accelerometer;
 
     public WheelCollider frontDriverW, frontPassengerW;
@@ -50,7 +51,7 @@ public class PlayerController : NetworkBehaviour {
         }
 
         GetInput();
-        debugText.text = string.Format("H value = {0}", h);
+        //debugText.text = string.Format("H value = {0}", h);
         Steer();
         Accelerate();
 
@@ -79,6 +80,8 @@ public class PlayerController : NetworkBehaviour {
             }
             else 
                 h = Input.acceleration.x;
+
+            h /= turnDamper;
         }
 
 
