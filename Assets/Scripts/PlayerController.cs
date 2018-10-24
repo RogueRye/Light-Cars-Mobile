@@ -6,6 +6,9 @@ using TMPro;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : NetworkBehaviour {
 
+    [HideInInspector]
+    public int playerNum;
+
     public float speed;
     public float maxTurnAngle;
     public float turnDamper = 2;
@@ -32,8 +35,9 @@ public class PlayerController : NetworkBehaviour {
 	void Start () {
 
         trail = GetComponentInChildren<ObjectTrail>();
-        network = NetworkManager.singleton as LobbyManager;        
-        trail.SetCurrentMat(trailMats[ netId.Value-2]);
+        network = NetworkManager.singleton as LobbyManager;
+        Debug.Log((netId.Value - 2) % 4);
+        trail.SetCurrentMat(trailMats[(netId.Value -2) % 4]);
 
         if (!isLocalPlayer)
             return;
@@ -115,7 +119,8 @@ public class PlayerController : NetworkBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
+
         if (other.CompareTag("Trail"))
         {
             dead = true;
@@ -130,6 +135,7 @@ public class PlayerController : NetworkBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+
         dead = true;
         foreach (Transform child in transform)
         {
@@ -142,7 +148,7 @@ public class PlayerController : NetworkBehaviour {
 
     void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
 
    

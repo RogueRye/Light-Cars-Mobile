@@ -43,6 +43,8 @@ public class HostSetup : MonoBehaviour {
             item.gameObject.SetActive(true);
         }
 
+        lobbyManager.joinRoom.gameObject.SetActive(false);
+
         lobbyManager.matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, lobbyManager.OnMatchJoined);
 
     }

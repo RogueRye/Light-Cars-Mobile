@@ -19,7 +19,13 @@ public class JoinRoom : MonoBehaviour {
 	
     public void RefreshList()
     {
-        if(lobbyManager == null)
+        Debug.Log("Refreshing");
+        for (int i = 0; i < transform.GetChild(0).childCount; i++)
+        {
+            Destroy(transform.GetChild(0).GetChild(i).gameObject);
+        }
+
+        if (lobbyManager == null)
         {
             lobbyManager = LobbyManager.singleton as LobbyManager; 
         }
@@ -39,6 +45,8 @@ public class JoinRoom : MonoBehaviour {
             print("Please refresh");
             //we are going to refresh the list
         }
+
+
 
         foreach (var match in matchList)
         {

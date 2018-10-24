@@ -19,8 +19,8 @@ public class MainMenu : MonoBehaviour {
 
     public void OnJoin()
     {
-        lobbyManager.StartMatchMaker();
-        joinRoom.gameObject.SetActive(true);
+
+        lobbyManager.StartMatchMaker();  
         joinRoom.RefreshList();
     }
 }

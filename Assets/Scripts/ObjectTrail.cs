@@ -46,6 +46,7 @@ public class ObjectTrail : MonoBehaviour {
             if (dist >= newObjectDistance)
             {
                 currentObject = Instantiate(trailObject, transform.position, Quaternion.identity) as GameObject;
+                currentObject.GetComponentInChildren<Renderer>().material = currentMat;
                 currentObjectStart = currentObject.transform.position;
             }
         }
@@ -53,6 +54,6 @@ public class ObjectTrail : MonoBehaviour {
 
     public void SetCurrentMat(Material _mat)
     {
-
+        currentMat = _mat;
     }
 }

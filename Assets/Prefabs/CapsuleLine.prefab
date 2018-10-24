@@ -75,7 +75,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4832618862156142}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4832618862156142
 Transform:
@@ -87,8 +87,8 @@ Transform:
   m_LocalPosition: {x: -2.565, y: 0.912, z: 0}
   m_LocalScale: {x: 0.05, y: 1, z: 0}
   m_Children:
-  - {fileID: 4879065729314432}
   - {fileID: 4450320009331962}
+  - {fileID: 4879065729314432}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -103,7 +103,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4832618862156142}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!23 &23932595128594768
 MeshRenderer:
@@ -155,7 +155,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6ca2cd06337a49449878f48815c8dc2f, type: 2}
+  - {fileID: 2100000, guid: 0e59f4fa7982ba44db96703df2a4e22e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

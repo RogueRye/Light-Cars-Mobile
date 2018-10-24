@@ -21,7 +21,6 @@ public class LobbyManager : NetworkLobbyManager {
     public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer)
     {
         canvas.SetActive(false);
-
         return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer, gamePlayer);
 
     }
@@ -29,16 +28,12 @@ public class LobbyManager : NetworkLobbyManager {
     public override void OnStartHost()
     {
         base.OnStartHost();
+
         if (lobbyMenu != null)
         {
             lobbyMenu.transform.parent.gameObject.SetActive(true);
             lobbyMenu.SetActive(true);
         }
 
-
     }
-
-
-
-
 }
