@@ -6,17 +6,39 @@ using UnityEngine.Networking;
 public class LobbyManager : NetworkLobbyManager {
 
     public GameObject lobbyMenu;
+    public GameObject joinRoom;
+    public GameObject canvas;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
     private void Start()
     {
-        lobbyMenu.SetActive(false);
+        if(lobbyMenu != null)
+            lobbyMenu.SetActive(false);
+      
+    }
+
+    public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer)
+    {
+        canvas.SetActive(false);
+
+        return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer, gamePlayer);
+
     }
 
     public override void OnStartHost()
     {
         base.OnStartHost();
+        if (lobbyMenu != null)
+        {
+            lobbyMenu.transform.parent.gameObject.SetActive(true);
+            lobbyMenu.SetActive(true);
+        }
 
-        lobbyMenu.SetActive(true);
+
     }
 
 

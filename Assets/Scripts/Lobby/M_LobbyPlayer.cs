@@ -13,13 +13,20 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
     [HideInInspector]
     public LobbyManager owner;
 
+
+    void Awake()
+    {
+      
+    }
+
     public override void OnClientEnterLobby()
     {
         base.OnClientEnterLobby();
         //get parent somehow
-        owner = FindObjectOfType<LobbyManager>();
-
-        gameObject.transform.SetParent(owner.lobbyMenu.transform.GetChild(0));
+        owner = NetworkManager.singleton as LobbyManager;
+        if(owner.lobbyMenu != null)
+            gameObject.transform.SetParent(owner.lobbyMenu.transform.GetChild(0));
+        
 
        
     }
@@ -33,15 +40,19 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
 
     private void Init()
     {
+        
+
+        myText.text = string.Format("Player {0}", owner.numPlayers);
+
         if (isLocalPlayer)
         {           
-            myText.text = "MyPlayer";
+           
             joinButton.enabled = true;
             btnText.text = "JOIN";
         }
         else
         {
-            myText.text = "OtherPlayer";
+           
             joinButton.enabled = false;
             btnText.text = "...";
         }
@@ -51,6 +62,11 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
     public void JoinMatch()
     {
         SendReadyToBeginMessage();
+
+        if(owner.numPlayers >= owner.minPlayers)
+        {
+           // SendSceneLoadedMessage();
+        }
     }
 
 }

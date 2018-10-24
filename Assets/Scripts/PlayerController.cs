@@ -22,7 +22,7 @@ public class PlayerController : NetworkBehaviour {
     float h = 0;
     float steerAngle;
 
-
+    CameraController cam;
     public enum MovementTypes
     {
         Accelerometer, touch
@@ -34,7 +34,8 @@ public class PlayerController : NetworkBehaviour {
             return;
 
         rb = GetComponent<Rigidbody>();
-        Camera.main.GetComponent<CameraController>().Init(transform);
+        cam = Camera.main.GetComponent<CameraController>();
+        cam.Init(transform);
 	}
 	
 	// Update is called once per frame
@@ -42,6 +43,8 @@ public class PlayerController : NetworkBehaviour {
 
         if (!isLocalPlayer)
             return;
+
+        cam.FixedTick();
 
         if (dead)
         {
@@ -81,7 +84,7 @@ public class PlayerController : NetworkBehaviour {
             else 
                 h = Input.acceleration.x;
 
-            h /= turnDamper;
+            h *= turnDamper;
         }
 
 

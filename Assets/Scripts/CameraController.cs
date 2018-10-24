@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour {
 
     public void LookAtTarget()
     {
+        
         var dir = target.position - transform.position;
 
         var rot = Quaternion.LookRotation(dir, Vector3.up);
@@ -31,8 +32,9 @@ public class CameraController : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, pos, speed * Time.fixedDeltaTime);
     }
 
-    private void FixedUpdate()
+    public void FixedTick()
     {
+
         LookAtTarget();
         MoveToTarget();
     }
