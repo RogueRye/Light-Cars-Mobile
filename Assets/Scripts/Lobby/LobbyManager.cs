@@ -9,10 +9,7 @@ public class LobbyManager : NetworkLobbyManager {
     public GameObject joinRoom;
     public GameObject canvas;
 
-    void Awake()
-    {
-        DontDestroyOnLoad(transform.gameObject);
-    }
+
 
     private void Start()
     {

@@ -11,8 +11,11 @@ public class ObjectTrail : MonoBehaviour {
     private Vector3 currentObjectStart;
     private GameObject currentObject;
 
-	// Use this for initialization
-	void Start () {
+
+    private Material currentMat;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -21,7 +24,9 @@ public class ObjectTrail : MonoBehaviour {
 		 if(currentObject == null)
         {
             currentObject = Instantiate(trailObject, transform.position, Quaternion.identity) as GameObject;
+            currentObject.GetComponentInChildren<Renderer>().material = currentMat;
             currentObjectStart = currentObject.transform.position;
+
         }
         else
         {
@@ -45,4 +50,9 @@ public class ObjectTrail : MonoBehaviour {
             }
         }
 	}
+
+    public void SetCurrentMat(Material _mat)
+    {
+
+    }
 }

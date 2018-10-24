@@ -10,10 +10,10 @@ public class PlayerController : NetworkBehaviour {
     public float maxTurnAngle;
     public float turnDamper = 2;
     public MovementTypes controlType = MovementTypes.Accelerometer;
-
+    public Material[] trailMats;
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
-    public TMP_Text debugText;
+    
 
     bool dead = false;
 
@@ -21,14 +21,19 @@ public class PlayerController : NetworkBehaviour {
 
     float h = 0;
     float steerAngle;
-
+    ObjectTrail trail;
     CameraController cam;
+    LobbyManager network;
     public enum MovementTypes
     {
         Accelerometer, touch
     }
 	// Use this for initialization
 	void Start () {
+
+        trail = GetComponentInChildren<ObjectTrail>();
+        network = NetworkManager.singleton as LobbyManager;        
+        trail.SetCurrentMat(trailMats[ netId.Value-2]);
 
         if (!isLocalPlayer)
             return;

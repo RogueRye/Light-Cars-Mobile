@@ -14,10 +14,7 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
     public LobbyManager owner;
 
 
-    void Awake()
-    {
-      
-    }
+
 
     public override void OnClientEnterLobby()
     {
@@ -62,11 +59,6 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
     public void JoinMatch()
     {
         SendReadyToBeginMessage();
-
-        if(owner.numPlayers >= owner.minPlayers)
-        {
-           // SendSceneLoadedMessage();
-        }
     }
 
 }

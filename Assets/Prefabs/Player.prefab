@@ -2371,11 +2371,15 @@ MonoBehaviour:
   maxTurnAngle: 35
   turnDamper: 2
   controlType: 0
+  trailMats:
+  - {fileID: 2100000, guid: 0e59f4fa7982ba44db96703df2a4e22e, type: 2}
+  - {fileID: 2100000, guid: 13f2c48ced9349542b55b20f231266ee, type: 2}
+  - {fileID: 2100000, guid: 6ca2cd06337a49449878f48815c8dc2f, type: 2}
+  - {fileID: 2100000, guid: 35042ef6231462e42ba0ec0ca055f1aa, type: 2}
   frontDriverW: {fileID: 146190803715065214}
   frontPassengerW: {fileID: 146345333988633882}
   rearDriverW: {fileID: 146120877532115456}
   rearPassengerW: {fileID: 146376372716641496}
-  debugText: {fileID: 0}
 --- !u!114 &114491552726641552
 MonoBehaviour:
   m_ObjectHideFlags: 1
