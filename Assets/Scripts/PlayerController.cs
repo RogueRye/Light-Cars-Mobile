@@ -6,9 +6,9 @@ using TMPro;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : NetworkBehaviour {
 
-   
+    [SyncVar]
     private int playerNum;
-
+    [SyncVar]
     private string playerName;
 
 
@@ -150,16 +150,16 @@ public class PlayerController : NetworkBehaviour {
 
         }
 
-        
-
-
         Invoke("Restart", 3);
 
     }
 
     void Restart()
-    {       
+    {
+        if (isLocalPlayer)
+            network.myCanvas.SetActive(true);
         network.StopClient();
+       
     }
 
    

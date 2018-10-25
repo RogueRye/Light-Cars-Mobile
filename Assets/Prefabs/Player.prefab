@@ -2371,6 +2371,7 @@ MonoBehaviour:
   maxTurnAngle: 35
   turnDamper: 2
   controlType: 0
+  deathFx: {fileID: 198830346245408212, guid: 9c4735b140b10b44dbda6d19d1e93d8e, type: 2}
   trailMats:
   - {fileID: 2100000, guid: 0e59f4fa7982ba44db96703df2a4e22e, type: 2}
   - {fileID: 2100000, guid: 13f2c48ced9349542b55b20f231266ee, type: 2}

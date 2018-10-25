@@ -9,15 +9,26 @@ public class LobbyManager : NetworkLobbyManager {
     public GameObject lobbyMenu;
     public GameObject joinRoom;
     public GameObject canvas;
-
-
+    [HideInInspector]
+    public GameObject myCanvas;
 
     private void Start()
     {
+        if(myCanvas == null)
+        {
+            myCanvas = Instantiate(canvas);
+        }
+
+        joinRoom = myCanvas.transform.Find("JoinRoom").gameObject;
+        lobbyMenu = myCanvas.transform.Find("Lobby Parent").Find("Lobby").gameObject;
+
+
         if(lobbyMenu != null)
             lobbyMenu.SetActive(false);
       
     }
+
+
 
     public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer)
     {
@@ -32,22 +43,21 @@ public class LobbyManager : NetworkLobbyManager {
 
     }
 
-
-
-
-
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
-        if(SceneManager.GetActiveScene().name == playScene)
+
+        if (SceneManager.GetActiveScene().name == playScene)
         {
-            canvas.SetActive(false);
+            myCanvas.SetActive(false);
         }
         else
         {
-            canvas.SetActive(true);
+            myCanvas.SetActive(true);
         }
 
         base.OnClientSceneChanged(conn);
+
+
     }
 
 

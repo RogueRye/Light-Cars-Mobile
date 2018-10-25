@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 
@@ -9,6 +10,11 @@ public class MainMenu : MonoBehaviour {
     public TMP_InputField matchNameField;
     public LobbyManager lobbyManager;
     public JoinRoom joinRoom;
+
+    private void Start()
+    {
+        lobbyManager = NetworkManager.singleton as LobbyManager;
+    }
 
     public void OnHost()
     {
