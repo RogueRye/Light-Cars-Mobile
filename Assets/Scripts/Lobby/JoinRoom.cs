@@ -20,6 +20,7 @@ public class JoinRoom : MonoBehaviour {
     public void RefreshList()
     {
         Debug.Log("Refreshing");
+
         for (int i = 0; i < transform.GetChild(0).childCount; i++)
         {
             Destroy(transform.GetChild(0).GetChild(i).gameObject);

@@ -6,13 +6,17 @@ using TMPro;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : NetworkBehaviour {
 
-    [HideInInspector]
-    public int playerNum;
+   
+    private int playerNum;
+
+    private string playerName;
+
 
     public float speed;
     public float maxTurnAngle;
     public float turnDamper = 2;
     public MovementTypes controlType = MovementTypes.Accelerometer;
+    public ParticleSystem deathFx;
     public Material[] trailMats;
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
@@ -31,14 +35,21 @@ public class PlayerController : NetworkBehaviour {
     {
         Accelerometer, touch
     }
+
+    public void SetNameAndNumber(string _name, int _num)
+    {
+        playerName = _name;
+        playerNum = _num;
+    }
+
 	// Use this for initialization
 	void Start () {
 
         trail = GetComponentInChildren<ObjectTrail>();
         network = NetworkManager.singleton as LobbyManager;
-        Debug.Log((netId.Value - 2) % 4);
-        trail.SetCurrentMat(trailMats[(netId.Value -2) % 4]);
 
+        trail.SetCurrentMat(trailMats[(playerNum -1)]);
+        
         if (!isLocalPlayer)
             return;
 
@@ -62,8 +73,7 @@ public class PlayerController : NetworkBehaviour {
 
         }
 
-        GetInput();
-        //debugText.text = string.Format("H value = {0}", h);
+        GetInput();        
         Steer();
         Accelerate();
 
@@ -75,12 +85,6 @@ public class PlayerController : NetworkBehaviour {
 #if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR
 
         h = Input.GetAxis("Horizontal");
-
-
-
-
-
-
 
 #elif UNITY_IOS || UNITY_ANDROID
 
@@ -123,32 +127,39 @@ public class PlayerController : NetworkBehaviour {
 
         if (other.CompareTag("Trail"))
         {
-            dead = true;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);
-            }
-
-            Invoke("Restart", 3);
+            Die();   
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Die();    
+    }
 
+
+    void Die()
+    {
         dead = true;
+
+        var particles = GameObject.Instantiate(deathFx, transform.position + (Vector3.up * .5f), Quaternion.identity);
+
+        particles.GetComponent<ParticleSystemRenderer>().material = trailMats[playerNum - 1];
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
 
         }
 
+        
+
+
         Invoke("Restart", 3);
+
     }
 
     void Restart()
-    {
-        
+    {       
+        network.StopClient();
     }
 
    

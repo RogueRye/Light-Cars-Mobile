@@ -10,4 +10,6 @@ public class KeepCanvas : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+
+
 }

@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
-public class M_LobbyPlayer : NetworkLobbyPlayer {
+public class M_LobbyPlayer : NetworkLobbyPlayer
+{
 
+    [SyncVar]
+    public string playerName;
+    [SyncVar]
+    public int playerNumber = -1;
 
     public Button joinButton;
     public TMP_Text myText;
@@ -14,18 +19,26 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
     public LobbyManager owner;
 
 
-
-
     public override void OnClientEnterLobby()
     {
         base.OnClientEnterLobby();
         //get parent somehow
-        owner = NetworkManager.singleton as LobbyManager;
-        if(owner.lobbyMenu != null)
-            gameObject.transform.SetParent(owner.lobbyMenu.transform.GetChild(0));
-        
 
-       
+
+        owner = NetworkManager.singleton as LobbyManager;
+
+
+        if (connectionToClient != null)
+            playerNumber = connectionToClient.connectionId + 1;
+
+        playerName = string.Format("Player {0}", playerNumber);
+        myText.text = playerName;
+
+        if (owner.lobbyMenu != null)
+            gameObject.transform.SetParent(owner.lobbyMenu.transform.GetChild(0));
+
+        ForeignInit();
+
     }
 
     public override void OnStartLocalPlayer()
@@ -34,25 +47,19 @@ public class M_LobbyPlayer : NetworkLobbyPlayer {
         Init();
     }
 
-
     private void Init()
     {
-        
 
-        myText.text = string.Format("Player {0}", owner.numPlayers);
+        joinButton.enabled = true;
+        btnText.text = "JOIN";
+       
+    }
 
-        if (isLocalPlayer)
-        {           
-           
-            joinButton.enabled = true;
-            btnText.text = "JOIN";
-        }
-        else
-        {
-           
-            joinButton.enabled = false;
-            btnText.text = "...";
-        }
+    private void ForeignInit()
+    {
+        btnText.text = "...";
+        joinButton.enabled = false;
+       // myText.text = playerName;
     }
 
 

@@ -17,7 +17,7 @@ public class HostSetup : MonoBehaviour {
         lobbyManager = NetworkManager.singleton as LobbyManager;
 
         lobbyParent = lobbyManager.lobbyMenu.transform.parent.gameObject;
-        Debug.Log(lobbyParent);
+        
 	}
 
     public void Init(MatchInfoSnapshot _match)
