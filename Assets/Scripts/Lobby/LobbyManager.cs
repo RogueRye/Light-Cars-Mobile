@@ -46,13 +46,12 @@ public class LobbyManager : NetworkLobbyManager {
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
 
+
+        myCanvas.SetActive(true);
+
         if (SceneManager.GetActiveScene().name == playScene)
         {
             myCanvas.SetActive(false);
-        }
-        else
-        {
-            myCanvas.SetActive(true);
         }
 
         base.OnClientSceneChanged(conn);

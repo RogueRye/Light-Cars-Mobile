@@ -27,6 +27,7 @@ public class PlayerController : NetworkBehaviour {
     private Rigidbody rb;
 
     float h = 0;
+    float v = 0;
     float steerAngle;
     ObjectTrail trail;
     CameraController cam;
@@ -82,22 +83,38 @@ public class PlayerController : NetworkBehaviour {
 
     public void GetInput()
     {
-#if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR
+#if UNITY_STANDALONE || UNITY_WEBPLAYER// || UNITY_EDITOR
 
         h = Input.GetAxis("Horizontal");
+        v = speed * Time.fixedDeltaTime * 60;
 
 #elif UNITY_IOS || UNITY_ANDROID
+
+        v = speed * Time.fixedDeltaTime * 60;
+
+        
 
          if (controlType == MovementTypes.Accelerometer)
         {
             if (Input.gyro.enabled)
             {
-                h = Input.gyro.attitude.z;
+                h = Input.gyro.attitude.eulerAngles.z;
+                if (-Input.gyro.attitude.eulerAngles.x == -0.45)
+                    v /= 1;
+                else
+                    v /= ((-Input.gyro.attitude.eulerAngles.x + 0.45f) * turnDamper);
             }
-            else 
-                h = Input.acceleration.x;
+            else
+            {
+                h = Input.acceleration.z;
+                if (-Input.gyro.attitude.x == -0.45)
+                    v /= 1;
+                else
+                    v /= ((-Input.gyro.attitude.x + .45f) * turnDamper);
+            }
 
             h *= turnDamper;
+            
         }
 
 
@@ -112,8 +129,8 @@ public class PlayerController : NetworkBehaviour {
 
     private void Accelerate()
     {
-        frontDriverW.motorTorque = speed * Time.fixedDeltaTime * 60;
-        frontPassengerW.motorTorque = speed * Time.fixedDeltaTime * 60;
+        frontDriverW.motorTorque = v;
+        frontPassengerW.motorTorque = v;
     }
     private void UpdateWheelPoses()
     {
@@ -158,6 +175,7 @@ public class PlayerController : NetworkBehaviour {
     {
         if (isLocalPlayer)
             network.myCanvas.SetActive(true);
+
         network.StopClient();
        
     }
